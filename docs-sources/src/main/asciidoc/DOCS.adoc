@@ -1,0 +1,16 @@
+= Cloud Pipelines Jenkins
+
+This project contains setup for Jenkins that creates jobs and pipelines
+via Jenkins Job DSL or Jenkinsfile for your projects. The pipelines and
+jobs use the scripts defined in
+https://github.com/CloudPipelines/scripts[Cloud Pipelines Scripts] repo.
+
+include::INTRO.adoc[]
+
+include::CUSTOMIZATION.adoc[]
+
+include::JENKINS.adoc[]
+
+include::TECH.adoc[]
+
+include::MISC.adoc[]

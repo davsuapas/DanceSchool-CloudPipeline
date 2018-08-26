@@ -1,0 +1,205 @@
+== Jenkins Pipeline (Common)
+
+In this section we will present the common setup of Jenkins for any platform.
+We will also provide answers to most frequently asked questions.
+
+=== Project setup
+
+In the `declarative-pipeline` you can find a definition of a declarative
+pipeline. It's used together with the Blueocean UI.
+
+Under `job-dsl` folder you'll find all `job-dsl` related setup. In its `jobs` subfolder
+you have all the seed jobs that will generate pipelines. You can read
+comments inside each script to understand what it's doing.
+
+Under `demo` folder you can find the setup prepared for demo purposes.
+In its `seed` subfolder folder you have the `init.groovy` file which is executed when Jenkins starts.
+That way we can configure most of Jenkins options for you (adding credentials, JDK etc.).
+`jenkins_pipeline.groovy` contains logic to build a seed job (that way you don't have to even click that
+job - we generate it for you). Under the `k8s` folder there are all the configuration
+files required for deployment to a Kubernetes cluster.
+
+=== Optional customization steps
+
+[[jenkins_optional]] All the steps below are not necessary to run the demo. They are needed only
+when you want to do some custom changes.
+
+[[setup-settings-xml]]
+==== Setup settings.xml for Maven deployment
+
+TIP: If you want to use the default connection to the Docker version
+of Artifactory you can skip this step
+
+[[jenkins-settings]] So that `./mvnw deploy` works with Artifactory from Docker we're
+already copying the missing `settings.xml` file for you. It looks more or less like this:
+
+====
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<servers>
+		<server>
+			<id>${M2_SETTINGS_REPO_ID}</id>
+			<username>${M2_SETTINGS_REPO_USERNAME}</username>
+			<password>${M2_SETTINGS_REPO_PASSWORD}</password>
+		</server>
+		<server>
+			<id>${DOCKER_SERVER_ID}</id>
+			<username>${DOCKER_USERNAME}</username>
+			<password>${DOCKER_PASSWORD}</password>
+			<configuration>
+				<email>${DOCKER_EMAIL}</email>
+			</configuration>
+		</server>
+	</servers>
+</settings>
+----
+====
+
+As you can see the file is parameterized. In Maven it's enough to pass
+to `./mvnw` command the proper system property to override that value. For example to pass
+a different docker email you'd have to call `./mvnw -DDOCKER_EMAIL=foo@bar.com` and the value
+gets updated.
+
+If you want to use your own version of Artifactory / Nexus you have to update
+the file (it's in `seed/settings.xml`).
+
+[[setup-jenkins-env-vars]]
+==== Setup Jenkins env vars
+
+[[jenkins_env]] If you want to only play around with the demo that we've prepared you have to set *ONE* variable which is the `REPOS` variable.
+That variable needs to consists of comma separated list of URLs to repositories containing business apps. So you should pass your forked repos URLs.
+
+You can do it in the following ways:
+
+- globally via Jenkins global env vars (then when you run the seed that variable will be taken into consideration and proper pipelines will get built)
+- modify the seed job parameters (you'll have to modify the seed job configuration and change the `REPOS` property)
+- provide the repos parameter when running the seed job
+
+For the sake of simplicity let's go with the *last* option.
+
+IMPORTANT: If you're choosing the global envs, you *HAVE* to remove the other approach
+(e.g. if you set the global env for `REPOS`, please remove that property in the
+seed job
+
+If you're using the Project Crawler based solution, you can also provide your own implementation
+to customize the created jobs.
+
+[[setup-seed-props]]
+===== Seed properties
+
+Click on the seed job and pick `Build with parameters`. Then as presented in the screen below (you'll have far more properties to set) just modify the `REPOS` property by providing the comma separated list of URLs to your forks. Whatever you set will be parsed by the seed job and passed to the generated Jenkins jobs.
+
+TIP: This is very useful when the repos you want to build differ. E.g. use
+different JDK. Then some seeds can set the `JDK_VERSION` param to one version
+of Java installation and the others to another one.
+
+Example screen:
+
+image::{jenkins-root-docs}/seed.png[]
+
+In the screenshot we could parametrize the `REPOS` and `REPO_WITH_BINARIES` params.
+
+[[global-envs]]
+===== Global envs
+
+IMPORTANT: This section is presented only for informational purposes - for the sake of demo you can skip it
+
+You can add env vars (go to configure Jenkins -> Global Properties) for the following
+ properties (example with defaults for PCF Dev):
+
+Example screen:
+
+image::{jenkins-root-docs}/env_vars.png[]
+
+[[git-email]]
+==== Set Git email / user
+
+Since our pipeline is setting the git user / name explicitly for the build step
+ you'd have to go to `Configure` of the build step and modify the Git name / email.
+ If you want to set it globally you'll have to remove the section from the build
+ step and follow these steps to set it globally.
+
+You can set Git email / user globally like this:
+
+{nbsp}
+{nbsp}
+
+image::{jenkins-root-docs}/manage_jenkins.png[caption="Step 1: ", title="Click 'Manage Jenkins'"]
+
+{nbsp}
+{nbsp}
+
+image::{jenkins-root-docs}/configure_system.png[caption="Step 2: ", title="Click 'Configure System'"]
+
+{nbsp}
+{nbsp}
+
+image::{jenkins-root-docs}/git.png[caption="Step 3: ", title="Fill out Git user information"]
+
+{nbsp}
+{nbsp}
+
+
+[[jenkins-credentials-github]]
+===== Add Jenkins credentials for GitHub
+
+[[jenkins-credentials]] The scripts will need to access the credential in order to tag the repo.
+
+You have to set credentials with id: `git`.
+
+Below you can find instructions on how to set a credential (e.g. for Cloud Foundry `cf-test` credential but
+remember to provide the one with id `git`).
+
+{nbsp}
+{nbsp}
+
+image::{jenkins-root-docs}/credentials_system.png[caption="Step 1: ", title="Click 'Credentials, System'"]
+
+{nbsp}
+{nbsp}
+
+image::{jenkins-root-docs}/credentials_global.png[caption="Step 2: ", title="Click 'Global Credentials'"]
+
+{nbsp}
+{nbsp}
+
+image::{jenkins-root-docs}/credentials_add.png[caption="Step 3: ", title="Click 'Add credentials'"]
+
+{nbsp}
+{nbsp}
+
+image::{jenkins-root-docs}/credentials_example.png[caption="Step 4: ", title="Fill out the user / password and provide the `git` credential ID (in this example `cf-test`)"]
+
+{nbsp}
+{nbsp}
+
+=== Testing Jenkins scripts
+
+To run the tests against your bash and Groovy scripts just call
+
+`./gradlew clean build`
+
+=== How to work with Jenkins Job DSL plugin
+
+Check out the https://github.com/jenkinsci/job-dsl-plugin/wiki/Tutorial---Using-the-Jenkins-Job-DSL[tutorial].
+Provide the link to this repository in your Jenkins installation.
+
+=== Docker Image
+
+If you would like to run the pre-configured Jenkins image somewhere other than your local machine, we
+have an image you can pull and use on https://hub.docker.com/r/cloudpipelines/cloud-pipelines-jenkins/[DockerHub].
+The `latest` tag corresponds to the latest snapshot build.  You can also find tags
+corresponding to stable releases that you can use as well.
+
+IMPORTANT: The Jenkins docker image is setup for demo purposes. For example it has the following
+system property `-Dpermissive-script-security.enabled=no_security` that disables script
+security. *YOU SHOULD NOT USE IT ON PRODUCTION UNLESS YOU KNOW WHAT YOU'RE DOING*.
+
+[[env_vars]]
+=== All Environment Variables
+
+Below you can find a table with all environment variables
+
+include::ENVIRONMENT_VARIABLES.adoc[]

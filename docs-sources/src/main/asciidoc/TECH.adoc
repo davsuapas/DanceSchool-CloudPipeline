@@ -1,0 +1,155 @@
+== Building the Project
+
+This section covers how to build the project. It covers:
+
+* <<building-project-setup>>
+* <<building-prerequisites>>
+* <<building-bats-submodules>>
+* <<building-build-and-test>>
+* <<building-generate-documentation>>
+* <<building-making-a-release>>
+* <<building-ci-worker-prerequisites>>
+
+[[building-project-setup]]
+=== Project Setup
+
+The `declarative-pipeline` folder contains all logic related to the Declarative Pipeline based
+approach of deploying software.
+
+Under `demo` folder you can find the setup prepared to start a demo instance of Jenkins and Artifactory.
+
+In `docs` you can find HTML documentation built from contents of `docs-sources`.
+
+The `job-dsl` folder contains all logic related to the Jenkins Job DSL based
+approach of deploying software.
+
+The `tools` folder contains tools required for building and that ease the work
+with demo setup.
+
+[[building-prerequisites]]
+=== Prerequisites
+
+As prerequisites, you need to have http://www.shellcheck.net/[shellcheck],
+https://github.com/sstephenson/bats[bats], https://stedolan.github.io/jq/[jq]
+and https://rubyinstaller.org/downloads/[ruby] installed. If you use a Linux
+machine, `bats` and `shellcheck` are installed for you.
+
+To install the required software on Linux, type the following command:
+
+====
+[source,bash]
+----
+$ sudo apt-get install -y ruby jq
+----
+====
+
+If you use a Mac, run the following commands to install the missing software:
+
+====
+[source,bash]
+----
+$ brew install jq
+$ brew install ruby
+$ brew install bats
+$ brew install shellcheck
+----
+====
+
+[[building-bats-submodules]]
+=== Bats Submodules
+
+To make `bats` work properly, we needed to attach Git submodules. To have them
+initialized, either clone the project or (if you have already cloned the project)
+pull to update it. The following command clones the project:
+
+====
+[source,bash]
+----
+$ git clone --recursive https://github.com/CloudPipelines/jenkins.git
+----
+====
+
+The following commands pull the project:
+
+====
+[source,bash]
+----
+$ git submodule init
+$ git submodule update
+----
+====
+
+If you forget about this step, Gradle runs these steps for you.
+
+[[building-build-and-test]]
+=== Build and test
+
+Once you have installed all the prerequisites, you can run the following command to build and test the project:
+
+====
+[source,bash]
+----
+$ ./gradlew clean build
+----
+====
+
+[[building-generate-documentation]]
+=== Generate Documentation
+
+To generate the documentation, run the following command:
+
+====
+[source,bash]
+----
+$ ./gradlew generateDocs
+----
+====
+
+[[building-making-a-release]]
+== Releasing the Project
+
+This section covers how to release the project by publishing a Docker image.
+
+=== Publishing A Docker Image
+
+Gradle is fully setup to build and release the project. Just pass the `-PreleaseDocker`
+property to the build to also upload the Docker images.
+
+====
+[source,bash]
+----
+$ ./gradlew clean build -PreleaseDocker
+----
+====
+
+You need to setup the environment variables / system properties / build properties
+
+* `DOCKER_REGISTRY_URL` - defaults to `https://index.docker.io/v1/`
+* `DOCKER_HUB_USERNAME` - defaults to `changeme`
+* `DOCKER_HUB_PASSWORD` - defaults to `changeme`
+* `DOCKER_HUB_EMAIL` - defaults to `change@me.com`
+
+[[building-ci-worker-prerequisites]]
+== CI Server Worker Prerequisites
+
+Cloud Pipelines uses Bash scripts extensively. The following list shows the software
+that needs to be installed on a CI server worker for the build to pass:
+
+====
+[source,bash]
+----
+ apt-get -y install \
+    bash \
+    git \
+    tar \
+    zip \
+    curl \
+    ruby \
+    wget \
+    unzip \
+    python \
+    jq
+----
+====
+
+TIP: In the demo setup all of these libraries are already installed.

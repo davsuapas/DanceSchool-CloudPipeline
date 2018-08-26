@@ -1,0 +1,57 @@
+== Customizing the Project
+
+Cloud Pipelines offers a way to override the way pipelines are built
+
+* <<customization-overriding-project-setup>>
+* <<customization-overriding-pipelines>>
+
+[[customization-overriding-project-setup]]
+=== Overriding Project Setup
+
+If you want to customize the Cloud Pipelines build, you can update the contents
+of the `gradle/custom.gradle` build script. That way your customizations will not
+interfere with the changes in the main part of the code, thus there should be
+no merge conflicts when pulling the changes from Cloud Pipeline repositories.
+
+[[customization-overriding-pipelines]]
+=== Overriding Pipelines
+
+Currently, the best way to extend Jenkins Jenkinsfile pipelines is to make
+a copy of the Jenkins seed and pipeline jobs.
+
+==== Overriding Jenkins Job DSL pipelines
+
+We provide an interface (called `io.cloudpipelines.common.JobCustomizer`)
+that lets you provide customization for:
+
+* all jobs
+* build jobs
+* test jobs
+* stage jobs
+* prod jobs
+
+We use the JDK's `java.util.ServiceLoader` mechanism to achieve extensibility.
+
+You can write an implementation of that interface (for example, `com.example.MyJubCustomizer`)
+and create a `META-INF/io.cloudpipelines.common.JobCustomizer` file in which you put the
+`com.example.MyJubCustomizer` line.
+
+If you create a JAR with your class (for example `com.example:my-customizer:1.0.0`),
+put it on the build classpath, as the following example shows:
+
+====
+[source,groovy]
+----
+dependencies {
+    // ...
+    libs "com.example:my-customizer:1.0.0"
+    // ...
+}
+----
+====
+
+If you do not want to create a separate library, you can create an implementation in the
+sources under `src/main/resources/META-INF`.
+
+Regardless of what you chose, your implementation runs for each job. You can add notifications
+or any other customizations of your choosing.
