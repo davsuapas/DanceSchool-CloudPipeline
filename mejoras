@@ -1,0 +1,2 @@
+* no copiar /home/dsuarez/git/DanceSchool-Pipeline/common/src/main/bash/k8s/.yml
+* añadir línea para sobrescribir pipeline-k8

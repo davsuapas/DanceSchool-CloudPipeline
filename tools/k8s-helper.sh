@@ -1,5 +1,3 @@
-#!/bin/bash
-
 function usage {
 	echo "usage: $0: <download-kubectl|download-minikube|download-gcloud|delete-all-apps|delete-all-test-apps|\
 delete-all-stage-apps|delete-all-prod-apps|setup-namespaces|setup-prod-infra|setup-tools-infra-vsphere|setup-tools-infra-gce>"
@@ -80,38 +78,34 @@ export PAAS_NAMESPACE="cloudpipelines-prod"
 export PAAS_PROD_API_URL="192.168.99.100:8443"
 export ENVIRONMENT="PROD"
 export PAAS_TYPE="k8s"
-
+export LANGUAGE_TYPE="jvm"
+export PROJECT_TYPE="gradle"
 export TOOLS_REPO="${TOOLS_REPO:-https://github.com/CloudPipelines/scripts}"
 export SCRIPTS
-tmpDir="$(mktemp -d)"
-SCRIPTS="${tmpDir}"
-trap "{ rm -rf ${tmpDir}; }" EXIT
-git clone "${TOOLS_REPO}" "${tmpDir}"
 
-# shellcheck source=/dev/null
-source "${SCRIPTS}"/src/main/bash/pipeline.sh
+function fetchAndSourceScripts() {
+	tmpDir="$(mktemp -d)"
+	SCRIPTS="${tmpDir}"
+	trap '{ rm -rf ${tmpDir}; }' EXIT
+	git clone "${TOOLS_REPO}" "${tmpDir}"
 
-# Overridden functions
+	pushd "${ROOT_FOLDER}tools/k8s"
 
-function outputFolder() {
-	echo "${SCRIPTS}/build"
+		# shellcheck source=/dev/null
+		source "${SCRIPTS}"/src/main/bash/pipeline-k8s.sh
+
+		# Overridden functions
+		function mySqlDatabase() {
+			echo "github"
+		}
+		export -f mySqlDatabase
+
+		function waitForAppToStart() {
+			echo "not waiting for the app to start"
+		}
+		export -f waitForAppToStart
+	popd
 }
-export -f outputFolder
-
-function retrieveAppName() {
-	echo "github-analytics"
-}
-export -f retrieveAppName
-
-function mySqlDatabase() {
-	echo "github"
-}
-export -f mySqlDatabase
-
-function waitForAppToStart() {
-	echo "not waiting for the app to start"
-}
-export -f waitForAppToStart
 
 case $1 in
 	download-kubectl)
@@ -167,6 +161,7 @@ case $1 in
 		;;
 
 	setup-namespaces)
+		fetchAndSourceScripts
 		mkdir -p build
 		createNamespace "cloudpipelines-test"
 		createNamespace "cloudpipelines-stage"
@@ -174,6 +169,7 @@ case $1 in
 		;;
 
 	setup-prod-infra)
+		fetchAndSourceScripts
 		copyK8sYamls
 		deployService "github-rabbitmq" "rabbitmq" "cloudpipelines/github-analytics-stub-runner-boot-classpath-stubs:latest"
 		deployService "github-eureka" "eureka" "cloudpipelines/github-eureka:latest"

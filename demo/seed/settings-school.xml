@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<servers>
+		<server>
+			<id>artifactory-local</id>
+			<username>admin</username>
+			<password>password</password>
+		</server>
+		<server>
+			<id>docker-repo</id>
+			<username>davsuapas</username>
+			<password>Adlgs02!</password>
+			<configuration>
+				<email>dav.sua.pas@gmail.com</email>
+			</configuration>
+		</server>
+	</servers>
+</settings>
