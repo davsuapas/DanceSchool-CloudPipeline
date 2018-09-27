@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function usage {
 	echo "usage: $0: <download-kubectl|download-minikube|download-gcloud|delete-all-apps|delete-all-test-apps|\
 delete-all-stage-apps|delete-all-prod-apps|setup-namespaces|setup-prod-infra|setup-tools-infra-vsphere|setup-tools-infra-gce>"
@@ -95,6 +97,11 @@ function fetchAndSourceScripts() {
 		source "${SCRIPTS}"/src/main/bash/pipeline-k8s.sh
 
 		# Overridden functions
+		function outputFolder() {
+			echo "${FOLDER}build"
+		}
+		export -f outputFolder			
+		
 		function mySqlDatabase() {
 			echo "github"
 		}
