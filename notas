@@ -8,10 +8,10 @@ minikube config set cpus 4
 - Dar permisos con chmod + x a todos los .sh
 - Crear cuenta docker hub y una organización
 - minikube start
+- Copy seed/setting-school.xml to .m2 -> configuración de registro en docker
 - Install jenkins y arti ./start.sh davsuapas pass davsuapas elipcero davsuapas pass dav.sua.pas@gmail.com
 - En cada proyecto ejecutar mvn -N io.takari:maven:wrapper para generar maven wrapper y configurar plugin y perfil en POM
 - Ejectuar tools/deploy-infra-school.sh -> Genera en artifactory
-- Copy seed/setting.xml to .m2 -> configuración de registro en docker
 - Ejectuar tools/deploy-infra-k8s-school.sh -> construye imagenes
 - Crear namespace ./tools/k8s-helper.sh setup-namespaces
 * El perfil de producción se llama kubernetes. El dns en kubernete es appname.namespace,
