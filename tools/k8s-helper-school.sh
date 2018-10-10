@@ -31,7 +31,7 @@ if [ -d "tools" ]; then
 	ROOT_FOLDER="$( pwd )/"
 fi
 
-SCRIPTS_FETCH_LOCAL="true"
+SCRIPTS_FETCH_LOCAL="false"
 
 export KUBE_CONFIG_PATH="$HOME/.kube/config"
 export PAAS_NAMESPACE="cloudpipelines-prod"
@@ -94,8 +94,8 @@ case $1 in
 	setup-prod-infra)
 		fetchAndSourceScripts
 		copyK8sYamls
-		deployService "eureka-school" "eureka" "elipcero/eureka-school:latest"
-		deployService "configuration-school" "infrastructure" "elipcero/configuration-school:latest"
+		deployService "eureka-school" "eureka" "danceschool/eureka-school:latest"
+		deployService "configuration-school" "infrastructure" "danceschool/configuration-school:latest"
 		;;
 
 	*)

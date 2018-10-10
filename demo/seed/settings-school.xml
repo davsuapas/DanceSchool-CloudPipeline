@@ -8,7 +8,7 @@
 		</server>
 		<server>
 			<id>docker-repo</id>
-			<username>davsuapas</username>
+			<username>danceschoolmicroservices</username>
 			<password>DanceSchool8MS!</password>
 			<configuration>
 				<email>dav.sua.pas@gmail.com</email>

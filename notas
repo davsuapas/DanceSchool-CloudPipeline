@@ -9,11 +9,13 @@ minikube config set cpus 4
 - Crear cuenta docker hub y una organización
 - minikube start
 - Copy seed/setting-school.xml to .m2 -> configuración de registro en docker
-- Install jenkins y arti ./start.sh davsuapas pass davsuapas elipcero davsuapas pass dav.sua.pas@gmail.com
+- Install jenkins y arti ./start.sh davsuapas pass davsuapas danceschool DanceSchoolMicroservices DanceSchool8MS! dav.sua.pas@gmail.com
+- (Esto cuando ya este instalado) Run jenkins y arti ./run.sh davsuapas pass davsuapas danceschool DanceSchoolMicroservices DanceSchool8MS! dav.sua.pas@gmail.com
 - En cada proyecto ejecutar mvn -N io.takari:maven:wrapper para generar maven wrapper y configurar plugin y perfil en POM
 - Ejectuar tools/deploy-infra-school.sh -> Genera en artifactory
-- Ejectuar tools/deploy-infra-k8s-school.sh -> construye imagenes
+- Ejectuar tools/deploy-infra-k8s-school.sh -> construye imagenes y despliega en docker
 - Crear namespace ./tools/k8s-helper.sh setup-namespaces
+- Crear las infrastructuras tools/k8s-helper-school.sh setup-prod-infra
 * El perfil de producción se llama kubernetes. El dns en kubernete es appname.namespace,
 por tanto para acceder a eureka será "eureka-school.sc-pipelines-prod"
 * Estaría bien que se pudieran personalizar los yml. Por ejemplo /health
