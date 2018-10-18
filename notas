@@ -1,3 +1,7 @@
+kubectl logs hystrixdashboard-school-7f9c4755c7-2rs5m --namespace=cloudpipelines-prod
+
+---------------------------------------------------------------------------------------------------
+
 Elimina EUREKA.CLIENT.HOSTNAME
 
 artifactory -> admin password
@@ -15,6 +19,7 @@ minikube config set cpus 4
 - Ejectuar tools/deploy-infra-school.sh -> Genera en artifactory
 - Ejectuar tools/deploy-infra-k8s-school.sh -> construye imagenes y despliega en docker
 - Crear namespace ./tools/k8s-helper.sh setup-namespaces
+- Crear todos los ficheros yml y desplegarlos con ./build-custom.sh en src/bash/custom/k8s
 - Crear las infrastructuras tools/k8s-helper-school.sh setup-prod-infra
 * El perfil de producción se llama kubernetes. El dns en kubernete es appname.namespace,
 por tanto para acceder a eureka será "eureka-school.sc-pipelines-prod"
