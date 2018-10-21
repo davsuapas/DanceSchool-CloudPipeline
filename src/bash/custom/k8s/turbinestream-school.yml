@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{appName}}
+spec:
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+      metadata:
+        labels:
+          name: {{appName}}
+      spec:
+        containers:
+        - name: {{appName}}
+          image: {{imgName}}
+          ports:
+          - containerPort: 8989
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8989
+            initialDelaySeconds: 40
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8989
+            initialDelaySeconds: 40
+            periodSeconds: 5
