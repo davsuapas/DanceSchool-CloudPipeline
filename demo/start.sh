@@ -38,7 +38,7 @@ fi
 if [[ -z "${EXTERNAL_IP}" ]]; then
     EXTERNAL_IP=`echo ${DOCKER_HOST} | cut -d ":" -f 2 | cut -d "/" -f 3`
     if [[ -z "${EXTERNAL_IP}" ]]; then
-        EXTERNAL_IP="$( whats_my_ip.sh )"
+        EXTERNAL_IP="$( ./whats_my_ip.sh )"
     fi
 fi
 

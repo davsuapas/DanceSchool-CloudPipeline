@@ -55,7 +55,7 @@ function fetchAndSourceScripts() {
 		source "${SCRIPTS}"/src/main/bash/pipeline-k8s.sh
 
 		# Extract custom scripts
-		tar -zxf "${ROOT_FOLDER}build/bash/custom/scripts.tar.gz" -C "${SCRIPTS}"
+		tar -zxf "${ROOT_FOLDER}script/bash/custom/scripts.tar.gz" -C "${SCRIPTS}"
 		# shellcheck source=/dev/null
 		source "${SCRIPTS}"/custom/pipeline-k8s.sh
 

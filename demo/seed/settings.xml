@@ -2,16 +2,16 @@
 <settings>
 	<servers>
 		<server>
-			<id>${M2_SETTINGS_REPO_ID}</id>
-			<username>${M2_SETTINGS_REPO_USERNAME}</username>
-			<password>${M2_SETTINGS_REPO_PASSWORD}</password>
+			<id>artifactory-local</id>
+			<username>admin</username>
+			<password>password</password>
 		</server>
 		<server>
-			<id>${DOCKER_SERVER_ID}</id>
-			<username>${DOCKER_USERNAME}</username>
-			<password>${DOCKER_PASSWORD}</password>
+			<id>docker-repo</id>
+			<username>danceschoolmicroservices</username>
+			<password>DanceSchool8MS!</password>
 			<configuration>
-				<email>${DOCKER_EMAIL}</email>
+				<email>dav.sua.pas@gmail.com</email>
 			</configuration>
 		</server>
 	</servers>
