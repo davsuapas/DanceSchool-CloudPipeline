@@ -94,10 +94,10 @@ case $1 in
 	setup-prod-infra)
 		fetchAndSourceScripts
 		copyK8sYamls
-		#deployService "eureka-school" "eureka" "danceschool/eureka-school:latest"
-		#deployService "configuration-school" "infrastructure" "danceschool/configuration-school:latest"
-		#deployService "zuul-school" "infrastructure" "danceschool/zuul-school:latest"
-		#deployService "hystrixdashboard-school" "infrastructure" "danceschool/hystrixdashboard-school:latest"
+		deployService "eureka-school" "eureka" "danceschool/eureka-school:latest"
+		deployService "configuration-school" "infrastructure" "danceschool/configuration-school:latest"
+		deployService "zuul-school" "infrastructure" "danceschool/zuul-school:latest"
+		deployService "hystrixdashboard-school" "infrastructure" "danceschool/hystrixdashboard-school:latest"
 		deployService "turbinestream-school" "infrastructure" "danceschool/turbinestream-school:latest"
 		;;
 

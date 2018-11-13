@@ -22,8 +22,8 @@ minikube config set cpus 4
 - Crear todos los ficheros yml y desplegarlos con ./build-custom.sh en src/bash/custom/k8s
 - Crear las infrastructuras tools/k8s-helper-school.sh setup-prod-infra
 - Configurar el fichero de deployment.yml y service.yml de cada servicio
-- Cambiar los valores por defecto de /demo/seed/jenkicd ..ns_pipeline-schhol.groovy
+- Cambiar los valores por defecto en /demo/seed/jenkins_pipeline-schhol.groovy
 - Añadir ADDITIONAL_SCRIPTS_TARBALL_URL tanto en /demo/seed/jenkins_pipeline-school.groovy como en /declarative-pipeline/jenkins_pipeline_jenkinsfiel_sample-school.groovy
 * El perfil de producción se llama kubernetes. El dns en kubernete es appname.namespace,
 por tanto para acceder a eureka será "eureka-school.sc-pipelines-prod"
-* Configurar kafka para que escuche por la diracción de kubernete 192.168.99.1
+* Configurar kafka para que escuche por la dirección de kubernete 192.168.99.1
