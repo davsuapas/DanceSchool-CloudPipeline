@@ -27,3 +27,4 @@ minikube config set cpus 4
 * El perfil de producción se llama kubernetes. El dns en kubernete es appname.namespace,
 por tanto para acceder a eureka será "eureka-school.sc-pipelines-prod"
 * Configurar kafka para que escuche por la dirección de kubernete 192.168.99.1
+* Cuando se actualize copiar los ficheros de minikube ubicados en /home/dsuarez/.minikube/
