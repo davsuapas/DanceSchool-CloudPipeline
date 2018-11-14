@@ -46,12 +46,12 @@ echo "Using Docker running at [${POTENTIAL_DOCKER_HOST}]"
 echo "Destination directory to clone the apps is [${DEST_DIR}]"
 echo "Artifactory ID [${ARTIFACTORY_ID}]"
 
-deploy_project "https://github.com/davsuapas/DanceSchool-Eureka"
+#deploy_project "https://github.com/davsuapas/DanceSchool-Eureka"
 deploy_project "https://github.com/davsuapas/DanceSchool-Configuration"
-deploy_project "https://github.com/davsuapas/DanceSchool-Zuul"
-deploy_project "https://github.com/davsuapas/DanceSchool-HystrixDashboard"
-deploy_project "https://github.com/davsuapas/DanceSchool-TurbineStream"
-deploy_project "https://github.com/davsuapas/DanceSchool-Core"
+#deploy_project "https://github.com/davsuapas/DanceSchool-Zuul"
+#deploy_project "https://github.com/davsuapas/DanceSchool-HystrixDashboard"
+#deploy_project "https://github.com/davsuapas/DanceSchool-TurbineStream"
+#deploy_project "https://github.com/davsuapas/DanceSchool-Core"
 
 echo "DONE!"
 
