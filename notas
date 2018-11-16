@@ -1,5 +1,15 @@
 kubectl logs hystrixdashboard-school-7f9c4755c7-2rs5m --namespace=cloudpipelines-prod
+sudo systemctl start kafka
+sudo systemctl start mongod
 
+// Elimina tags
+git fetch
+#Delete remote tags.
+git tag -l | xargs -n 1 git push --delete origin
+#Delete local tasg.
+git tag -l | xargs git tag -d
+
+sudo docker exec -i -t 40bef5212c0b /bin/bash
 ---------------------------------------------------------------------------------------------------
 
 Elimina EUREKA.CLIENT.HOSTNAME
@@ -23,7 +33,7 @@ minikube config set cpus 4
 - Crear las infrastructuras tools/k8s-helper-school.sh setup-prod-infra
 - Configurar el fichero de deployment.yml y service.yml de cada servicio
 - Cambiar los valores por defecto en /demo/seed/jenkins_pipeline-schhol.groovy
-- Añadir ADDITIONAL_SCRIPTS_TARBALL_URL tanto en /demo/seed/jenkins_pipeline-school.groovy como en /declarative-pipeline/jenkins_pipeline_jenkinsfiel_sample-school.groovy
+- Añadir ADDITIONAL_SCRIPTS_TARBALL_URL tanto en dockerfile
 * El perfil de producción se llama kubernetes. El dns en kubernete es appname.namespace,
 por tanto para acceder a eureka será "eureka-school.sc-pipelines-prod"
 * Configurar kafka para que escuche por la dirección de kubernete 192.168.99.1

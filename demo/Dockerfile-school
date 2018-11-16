@@ -16,7 +16,7 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false \
               -Dhudson.model.ParametersAction.keepUndefinedParameters=true \
               -Dpermissive-script-security.enabled=no_security
 
-ENV ADDITIONAL_SCRIPTS_TARBALL_URL=https://raw.githubusercontent.com/davsuapas/DanceSchool-CloudPipeline/master/script/bash/custom/scripts.tar.gz                            
+ENV ADDITIONAL_SCRIPTS_TARBALL_URL=https://raw.githubusercontent.com/davsuapas/DanceSchool-CloudPipeline/master/script/bash/custom/scripts.tar.gz
 
 ARG gituser=changeme
 ARG gitpass=changeme

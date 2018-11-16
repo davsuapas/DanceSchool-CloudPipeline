@@ -33,7 +33,6 @@ envs['GIT_EMAIL'] = binding.variables["GIT_EMAIL"] ?: "pivo@tal.com"
 envs['GIT_NAME'] = binding.variables["GIT_NAME"] ?: "Pivo Tal"
 envs["PAAS_TYPE"] = binding.variables["PAAS_TYPE"] ?: "cf"
 envs['SCRIPTS_URL'] = binding.variables["SCRIPTS_URL"] ?: 'https://github.com/CloudPipelines/scripts'
-envs["ADDITIONAL_SCRIPTS_TARBALL_URL"] = binding.variables["ADDITIONAL_SCRIPTS_TARBALL_URL"] ?: "https://github.com/davsuapas/DanceSchool-CloudPipeline/script/bash/custom/scripts.tar.gz"
 envs["SCRIPTS_BRANCH"] = binding.variables["SCRIPTS_BRANCH"] ?: "master"
 envs["M2_SETTINGS_REPO_ID"] = binding.variables["M2_SETTINGS_REPO_ID"] ?: "artifactory-local"
 envs["REPO_WITH_BINARIES"] = binding.variables["REPO_WITH_BINARIES"] ?: "http://artifactory:8081/artifactory/libs-release-local"
