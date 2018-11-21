@@ -1,3 +1,48 @@
+function prepareForSmokeTests() {
+	echo "Retrieving group and artifact id - it can take a while..."
+
+	local appName
+	appName="$(retrieveAppName)"
+	mkdir -p "${OUTPUT_FOLDER}"
+	logInToPaas
+	local applicationPort
+	applicationPort="$(portFromKubernetes "${appName}")"
+	local applicationHost
+	applicationHost="$(applicationHost "${appName}")"
+
+	export APPLICATION_URL=""
+	export STUBRUNNER_URL=""
+
+	local stubrunnerIsDefined
+	stubrunnerDefined && stubrunnerIsDefined="true" || stubrunnerIsDefined="false"
+	if [[ "${stubrunnerDefined}" == "true" ]]; then
+		local stubrunnerAppName
+		stubrunnerAppName="stubrunner-${appName}"
+		local stubrunnerPort
+		stubrunnerPort="$(portFromKubernetes "${stubrunnerAppName}")"
+		local stubRunnerUrl
+		stubRunnerUrl="$(applicationHost "${stubrunnerAppName}")"
+
+		rt APPLICATION_URL="${applicationHost}:${applicationPort}"
+		export STUBRUNNER_URL="${stubRunnerUrl}:${stubrunnerPort}"
+		echo "Stubrunner defined"
+	else
+		echo "Stubrunner is not defined"
+	fi	
+}
+
+function stubrunnerDefined() {
+	local typeStubrunner
+	typeStubrunner = "stubrunner"
+	local stubrunner
+	stubrunner="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y)')"
+	if [[ "${stubrunner}" == "null" || "${stubrunner}" == "" ]]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
 function deployService() {
 	local serviceName
 	serviceName="${1}"

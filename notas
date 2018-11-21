@@ -10,6 +10,7 @@ git tag -l | xargs -n 1 git push --delete origin
 git tag -l | xargs git tag -d
 
 sudo docker exec -i -t 40bef5212c0b /bin/bash
+
 ---------------------------------------------------------------------------------------------------
 
 Elimina EUREKA.CLIENT.HOSTNAME
