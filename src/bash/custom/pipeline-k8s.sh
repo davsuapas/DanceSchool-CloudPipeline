@@ -10,7 +10,7 @@ function prepareForSmokeTests() {
 	local applicationHost
 	applicationHost="$(applicationHost "${appName}")"
 
-	export APPLICATION_URL=""
+	export APPLICATION_URL="${applicationHost}:${applicationPort}"
 	export STUBRUNNER_URL=""
 
 	local stubrunnerIsDefined
@@ -23,8 +23,7 @@ function prepareForSmokeTests() {
 		local stubRunnerUrl
 		stubRunnerUrl="$(applicationHost "${stubrunnerAppName}")"
 
-		rt APPLICATION_URL="${applicationHost}:${applicationPort}"
-		export STUBRUNNER_URL="${stubRunnerUrl}:${stubrunnerPort}"
+		STUBRUNNER_URL="${stubRunnerUrl}:${stubrunnerPort}"
 		echo "Stubrunner defined"
 	else
 		echo "Stubrunner is not defined"
@@ -33,7 +32,7 @@ function prepareForSmokeTests() {
 
 function stubrunnerDefined() {
 	local typeStubrunner
-	typeStubrunner = "stubrunner"
+	typeStubrunner="stubrunner"
 	local stubrunner
 	stubrunner="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y)')"
 	if [[ "${stubrunner}" == "null" || "${stubrunner}" == "" ]]; then
