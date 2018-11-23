@@ -37,11 +37,13 @@ export KUBE_CONFIG_PATH="$HOME/.kube/config"
 export PAAS_NAMESPACE="cloudpipelines-prod"
 export PAAS_PROD_API_URL="192.168.99.100:8443"
 export ENVIRONMENT="PROD"
+export LOWERCASE_ENV = "prod"
 export PAAS_TYPE="k8s"
 export LANGUAGE_TYPE="jvm"
 export PROJECT_TYPE="gradle"
 export TOOLS_REPO="${TOOLS_REPO:-https://github.com/CloudPipelines/scripts}"
 export SCRIPTS
+export PARSED_YAML
 
 function fetchAndSourceScripts() {
 
@@ -94,13 +96,21 @@ case $1 in
 	setup-prod-infra)
 		fetchAndSourceScripts
 		copyK8sYamls
-		deployService "eureka-school" "eureka" "danceschool/eureka-school:latest"
-		deployService "configuration-school" "infrastructure" "danceschool/configuration-school:latest"
-		deployService "zuul-school" "infrastructure" "danceschool/zuul-school:latest"
-		deployService "hystrixdashboard-school" "infrastructure" "danceschool/hystrixdashboard-school:latest"
-		deployService "turbinestream-school" "infrastructure" "danceschool/turbinestream-school:latest"
-		;;
+		PARSED_YAML='{"prod":{"services":[{name": "eureka-school","coordinates": "danceschool/eureka-school:latest"}]}}'
+		deployService "eureka-school" "eureka"
 
+		PARSED_YAML='{"prod":{"services":[{name": "configuration-school","coordinates": "danceschool/configuration-school:latest"}]}}'
+		deployService "configuration-school" "infrastructure"
+
+		#PARSED_YAML='{"prod":{"services":[{name": "zuul-school","coordinates": "danceschool/zuul-school:latest"}]}}'
+		#deployService "zuul-school" "infrastructure" "danceschool/zuul-school:latest"
+
+		#PARSED_YAML='{"prod":{"services":[{name": "hystrixdashboard-school","coordinates": "danceschool/hystrixdashboard-school:latest"}]}}'
+		#deployService "hystrixdashboard-school" "infrastructure" "danceschool/hystrixdashboard-school:latest"
+
+		#PARSED_YAML='{"prod":{"services":[{name": "turbinestream-school","coordinates": "danceschool/turbinestream-school:latest"}]}}'
+		#deployService "turbinestream-school" "infrastructure" "danceschool/turbinestream-school:latest"
+		;;
 	*)
 		usage
 		;;

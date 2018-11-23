@@ -48,6 +48,7 @@ function deployService() {
 	local serviceType
 	serviceType="$(toLowerCase "${2}")"
 	local serviceCoordinates
+	echo "Parsed Yaml: ${PARSED_YAML}"
 	serviceCoordinates="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${serviceName}" '.[$x].services[] | select(.name == $y) | .coordinates')"
 	if [[ "${serviceCoordinates}" == "null" ]]; then
 		serviceCoordinates=""
