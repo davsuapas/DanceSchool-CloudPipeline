@@ -37,7 +37,7 @@ export KUBE_CONFIG_PATH="$HOME/.kube/config"
 export PAAS_NAMESPACE="cloudpipelines-prod"
 export PAAS_PROD_API_URL="192.168.99.100:8443"
 export ENVIRONMENT="PROD"
-export LOWERCASE_ENV = "prod"
+export LOWERCASE_ENV="prod"
 export PAAS_TYPE="k8s"
 export LANGUAGE_TYPE="jvm"
 export PROJECT_TYPE="gradle"
@@ -96,13 +96,6 @@ case $1 in
 	setup-prod-infra)
 		fetchAndSourceScripts
 		copyK8sYamls
-
-	PARSED_YAML='{"prod":{"services":[{"name": "eureka-school","coordinates": "danceschool/eureka-school:latest"}]}}'
-	serviceCoordinates="$(echo "${PARSED_YAML}" |  jq -r --arg x "prod" --arg y "eureka-school" '.[$x].services[] | select(.name == $y) | .coordinates')"
-	echo "------------"
-	echo "${serviceCoordinates}"
-	echo "------------"
-
 
 		PARSED_YAML='{"prod":{"services":[{"name": "eureka-school","coordinates": "danceschool/eureka-school:latest"}]}}'
 		deployService "eureka-school" "eureka"
