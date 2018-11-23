@@ -103,14 +103,14 @@ case $1 in
 		PARSED_YAML='{"prod":{"services":[{"name": "configuration-school","coordinates": "danceschool/configuration-school:latest"}]}}'
 		deployService "configuration-school" "infrastructure"
 
-		#PARSED_YAML='{"prod":{"services":[{"name": "zuul-school","coordinates": "danceschool/zuul-school:latest"}]}}'
-		#deployService "zuul-school" "infrastructure" "danceschool/zuul-school:latest"
+		PARSED_YAML='{"prod":{"services":[{"name": "zuul-school","coordinates": "danceschool/zuul-school:latest"}]}}'
+		deployService "zuul-school" "infrastructure" "danceschool/zuul-school:latest"
 
-		#PARSED_YAML='{"prod":{"services":[{"name": "hystrixdashboard-school","coordinates": "danceschool/hystrixdashboard-school:latest"}]}}'
-		#deployService "hystrixdashboard-school" "infrastructure" "danceschool/hystrixdashboard-school:latest"
+		PARSED_YAML='{"prod":{"services":[{"name": "hystrixdashboard-school","coordinates": "danceschool/hystrixdashboard-school:latest"}]}}'
+		deployService "hystrixdashboard-school" "infrastructure" "danceschool/hystrixdashboard-school:latest"
 
-		#PARSED_YAML='{"prod":{"services":[{"name": "turbinestream-school","coordinates": "danceschool/turbinestream-school:latest"}]}}'
-		#deployService "turbinestream-school" "infrastructure" "danceschool/turbinestream-school:latest"
+		PARSED_YAML='{"prod":{"services":[{"name": "turbinestream-school","coordinates": "danceschool/turbinestream-school:latest"}]}}'
+		deployService "turbinestream-school" "infrastructure" "danceschool/turbinestream-school:latest"
 		;;
 	*)
 		usage
