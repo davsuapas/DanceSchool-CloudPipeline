@@ -96,19 +96,27 @@ case $1 in
 	setup-prod-infra)
 		fetchAndSourceScripts
 		copyK8sYamls
-		PARSED_YAML='{"prod":{"services":[{name": "eureka-school","coordinates": "danceschool/eureka-school:latest"}]}}'
+
+	PARSED_YAML='{"prod":{"services":[{"name": "eureka-school","coordinates": "danceschool/eureka-school:latest"}]}}'
+	serviceCoordinates="$(echo "${PARSED_YAML}" |  jq -r --arg x "prod" --arg y "eureka-school" '.[$x].services[] | select(.name == $y) | .coordinates')"
+	echo "------------"
+	echo "${serviceCoordinates}"
+	echo "------------"
+
+
+		PARSED_YAML='{"prod":{"services":[{"name": "eureka-school","coordinates": "danceschool/eureka-school:latest"}]}}'
 		deployService "eureka-school" "eureka"
 
-		PARSED_YAML='{"prod":{"services":[{name": "configuration-school","coordinates": "danceschool/configuration-school:latest"}]}}'
+		PARSED_YAML='{"prod":{"services":[{"name": "configuration-school","coordinates": "danceschool/configuration-school:latest"}]}}'
 		deployService "configuration-school" "infrastructure"
 
-		#PARSED_YAML='{"prod":{"services":[{name": "zuul-school","coordinates": "danceschool/zuul-school:latest"}]}}'
+		#PARSED_YAML='{"prod":{"services":[{"name": "zuul-school","coordinates": "danceschool/zuul-school:latest"}]}}'
 		#deployService "zuul-school" "infrastructure" "danceschool/zuul-school:latest"
 
-		#PARSED_YAML='{"prod":{"services":[{name": "hystrixdashboard-school","coordinates": "danceschool/hystrixdashboard-school:latest"}]}}'
+		#PARSED_YAML='{"prod":{"services":[{"name": "hystrixdashboard-school","coordinates": "danceschool/hystrixdashboard-school:latest"}]}}'
 		#deployService "hystrixdashboard-school" "infrastructure" "danceschool/hystrixdashboard-school:latest"
 
-		#PARSED_YAML='{"prod":{"services":[{name": "turbinestream-school","coordinates": "danceschool/turbinestream-school:latest"}]}}'
+		#PARSED_YAML='{"prod":{"services":[{"name": "turbinestream-school","coordinates": "danceschool/turbinestream-school:latest"}]}}'
 		#deployService "turbinestream-school" "infrastructure" "danceschool/turbinestream-school:latest"
 		;;
 	*)
