@@ -25,7 +25,7 @@ minikube config set cpus 4
 - minikube start
 - Copy seed/setting-school.xml to .m2 -> configuración de registro en docker
 - Install jenkins y arti ./start.sh davsuapas pass davsuapas danceschool DanceSchoolMicroservices DanceSchool8MS! danceschoolmicroservices@gmail.com
-- (Esto cuando ya este instalado) Run jenkins y arti ./run.sh davsuapas pass davsuapas danceschool DanceSchoolMicroservices DanceSchool8MS! danceschoolmicroservices@gmail.com
+- (Esto cuando ya este instalado) Run jenkins y arti ./run.sh davsuapas pass davsuapas danceschool DanceSchoolMicroservices pass danceschoolmicroservices@gmail.com
 - En cada proyecto ejecutar mvn -N io.takari:maven:wrapper para generar maven wrapper y configurar plugin y perfil en POM
 - Ejectuar tools/deploy-infra-school.sh -> Genera en artifactory
 - Ejectuar tools/deploy-infra-k8s-school.sh -> construye imagenes y despliega en docker
