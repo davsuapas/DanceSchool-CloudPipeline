@@ -11,6 +11,9 @@ git tag -l | xargs git tag -d
 
 sudo docker exec -i -t 40bef5212c0b /bin/bash
 
+./tools/k8s-helper.sh delete-all-test-apps
+./tools/k8s-helper.sh delete-all-stage-apps
+
 ---------------------------------------------------------------------------------------------------
 
 Elimina EUREKA.CLIENT.HOSTNAME
