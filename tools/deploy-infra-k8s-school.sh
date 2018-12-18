@@ -46,6 +46,7 @@ deploy_project "https://github.com/davsuapas/DanceSchool-Configuration"
 #deploy_project "https://github.com/davsuapas/DanceSchool-Zuul"
 #deploy_project "https://github.com/davsuapas/DanceSchool-HystrixDashboard"
 #deploy_project "https://github.com/davsuapas/DanceSchool-TurbineStream"
-
+#deploy_project "https://github.com/davsuapas/DanceSchool-TurbineStream"
+#deploy_project "https://github.com/davsuapas/DanceSchool-ClassCustomerStubrunner"
 
 echo "DONE!"
