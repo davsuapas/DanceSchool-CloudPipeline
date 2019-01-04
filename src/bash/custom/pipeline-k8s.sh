@@ -18,12 +18,16 @@ function prepareForSmokeTests() {
 	if [[ "${stubrunnerDefined}" == "true" ]]; then
 		local stubrunnerAppName
 		stubrunnerAppName="stubrunner-${appName}"
+		echo "----------------> stubrunnerAppName: ${stubrunnerAppName}"
 		local stubrunnerPort
 		stubrunnerPort="$(portFromKubernetes "${stubrunnerAppName}")"
+		echo "----------------> stubrunnerPort: ${stubrunnerPort}"
 		local stubRunnerUrl
 		stubRunnerUrl="$(applicationHost "${stubrunnerAppName}")"
+		echo "----------------> stubRunnerUrl: ${stubRunnerUrl}"
 
 		STUBRUNNER_URL="${stubRunnerUrl}:${stubrunnerPort}"
+		echo "----------------> STUBRUNNER_URL: ${STUBRUNNER_URL}"
 		echo "Stubrunner defined"
 	else
 		echo "Stubrunner is not defined"
@@ -34,6 +38,7 @@ function stubrunnerDefined() {
 	local typeStubrunner
 	typeStubrunner="stubrunner"
 	local stubrunner
+	echo "----------------> PARSED_YAML ${PARSED_YAML}"
 	stubrunner="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y)')"
 	if [[ "${stubrunner}" == "null" || "${stubrunner}" == "" ]]; then
 		return 1
