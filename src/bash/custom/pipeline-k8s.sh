@@ -38,8 +38,9 @@ function stubrunnerDefined() {
 	local typeStubrunner
 	typeStubrunner="stubrunner"
 	local stubrunner
-	echo "----------------> PARSED_YAML ${PARSED_YAML}"
+	echo "----------------> PARSED_YAML ${PARSED_YAML} - ${LOWERCASE_ENV} - ${typeStubrunner}"
 	stubrunner="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y)')"
+	echo "----------------> stubrunner ${stubrunner}"
 	if [[ "${stubrunner}" == "null" || "${stubrunner}" == "" ]]; then
 		return 1
 	else
