@@ -13,7 +13,17 @@ function prepareForSmokeTests() {
 	export APPLICATION_URL="${applicationHost}:${applicationPort}"
 	export STUBRUNNER_URL=""
 
-	if "$(stubrunnerDefined)" == "true"; then
+	local typeStubrunner
+	typeStubrunner="stubrunner"
+	local stubrunner
+	echo "----------------> PARSED_YAML ${PARSED_YAML} - ${LOWERCASE_ENV} - ${typeStubrunner}"
+	stubrunner="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y)')"
+
+	echo "----------------> stubrunner ${stubrunner}"
+
+	if [[ "${stubrunner}" == "null" || "${stubrunner}" == "" ]]; then
+		echo "Stubrunner is not defined"
+	else
 		local stubrunnerAppName
 		stubrunnerAppName="stubrunner-${appName}"
 		echo "----------------> stubrunnerAppName: ${stubrunnerAppName}"
@@ -27,23 +37,7 @@ function prepareForSmokeTests() {
 		STUBRUNNER_URL="${stubRunnerUrl}:${stubrunnerPort}"
 		echo "----------------> STUBRUNNER_URL: ${STUBRUNNER_URL}"
 		echo "Stubrunner defined"
-	else
-		echo "Stubrunner is not defined"
 	fi	
-}
-
-function stubrunnerDefined() {
-	local typeStubrunner
-	typeStubrunner="stubrunner"
-	local stubrunner
-	echo "----------------> PARSED_YAML ${PARSED_YAML} - ${LOWERCASE_ENV} - ${typeStubrunner}"
-	stubrunner="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y)')"
-	echo "----------------> stubrunner ${stubrunner}"
-	if [[ "${stubrunner}" == "null" || "${stubrunner}" == "" ]]; then
-		echo "true"
-	else
-		echo "false"
-	fi
 }
 
 function deployService() {
