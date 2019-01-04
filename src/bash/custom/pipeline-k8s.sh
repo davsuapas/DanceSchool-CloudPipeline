@@ -8,12 +8,12 @@ function prepareForSmokeTests() {
 	local applicationPort
 	applicationPort="$(portFromKubernetes "${appName}")"
 	local applicationHost
-	applicationHost="$(applicationHo0st "${appName}")"
+	applicationHost="$(applicationHost "${appName}")"
 
 	export APPLICATION_URL="${applicationHost}:${applicationPort}"
 	export STUBRUNNER_URL=""
 
-	if $(stubrunnerDefined) == "true"; then
+	if "$(stubrunnerDefined)" == "true"; then
 		local stubrunnerAppName
 		stubrunnerAppName="stubrunner-${appName}"
 		echo "----------------> stubrunnerAppName: ${stubrunnerAppName}"
