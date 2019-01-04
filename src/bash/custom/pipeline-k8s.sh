@@ -8,7 +8,7 @@ function prepareForSmokeTests() {
 	local applicationPort
 	applicationPort="$(portFromKubernetes "${appName}")"
 	local applicationHost
-	applicationHost="$(applicationHost "${appName}")"
+	applicationHost="$(applicationHo0st "${appName}")"
 
 	export APPLICATION_URL="${applicationHost}:${applicationPort}"
 	export STUBRUNNER_URL=""
