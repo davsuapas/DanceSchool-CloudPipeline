@@ -13,11 +13,7 @@ function prepareForSmokeTests() {
 	export APPLICATION_URL="${applicationHost}:${applicationPort}"
 	export STUBRUNNER_URL=""
 
-
-	local stubrunnerIsDefined
-	stubrunnerIsDefined = stubrunnerDefined;
-
-	if stubrunnerIsDefined == 1; then
+	if $(stubrunnerDefined) == "true"; then
 		local stubrunnerAppName
 		stubrunnerAppName="stubrunner-${appName}"
 		echo "----------------> stubrunnerAppName: ${stubrunnerAppName}"
@@ -44,9 +40,9 @@ function stubrunnerDefined() {
 	stubrunner="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y)')"
 	echo "----------------> stubrunner ${stubrunner}"
 	if [[ "${stubrunner}" == "null" || "${stubrunner}" == "" ]]; then
-		return 1
+		echo "true"
 	else
-		return 0
+		echo "false"
 	fi
 }
 
