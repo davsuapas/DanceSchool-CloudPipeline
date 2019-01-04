@@ -13,9 +13,9 @@ function prepareForSmokeTests() {
 	export APPLICATION_URL="${applicationHost}:${applicationPort}"
 	export STUBRUNNER_URL=""
 
-	local stubrunnerIsDefined
-	stubrunnerDefined && stubrunnerIsDefined="true" || stubrunnerIsDefined="false"
-	if [[ "${stubrunnerDefined}" == "true" ]]; then
+	local stubrunnerIsDefined = stubrunnerDefined
+
+	if stubrunnerIsDefined == 1; then
 		local stubrunnerAppName
 		stubrunnerAppName="stubrunner-${appName}"
 		echo "----------------> stubrunnerAppName: ${stubrunnerAppName}"
