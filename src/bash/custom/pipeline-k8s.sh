@@ -13,6 +13,7 @@ function prepareForSmokeTests() {
 	export APPLICATION_URL="${applicationHost}:${applicationPort}"
 	export STUBRUNNER_URL=""
 
+
 	local stubrunnerIsDefined
 	stubrunnerIsDefined = stubrunnerDefined;
 
