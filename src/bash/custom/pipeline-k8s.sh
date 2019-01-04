@@ -15,18 +15,15 @@ function prepareForSmokeTests() {
 
 	local typeStubrunner
 	typeStubrunner="stubrunner"
-	local stubrunner
+	local stubrunnerAppName
 	echo "----------------> PARSED_YAML ${PARSED_YAML} - ${LOWERCASE_ENV} - ${typeStubrunner}"
-	stubrunner="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y)')"
+	stubrunnerAppName="$(echo "${PARSED_YAML}" |  jq -r --arg x "${LOWERCASE_ENV}" --arg y "${typeStubrunner}" '.[$x].services[] | select(.type == $y) | .name')"
 
-	echo "----------------> stubrunner ${stubrunner}"
+	echo "----------------> stubrunnerAppName ${stubrunnerAppName}"
 
-	if [[ "${stubrunner}" == "null" || "${stubrunner}" == "" ]]; then
+	if [[ "${stubrunnerAppName}" == "null" || "${stubrunnerAppName}" == "" ]]; then
 		echo "Stubrunner is not defined"
 	else
-		local stubrunnerAppName
-		stubrunnerAppName="stubrunner-${appName}"
-		echo "----------------> stubrunnerAppName: ${stubrunnerAppName}"
 		local stubrunnerPort
 		stubrunnerPort="$(portFromKubernetes "${stubrunnerAppName}")"
 		echo "----------------> stubrunnerPort: ${stubrunnerPort}"
