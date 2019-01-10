@@ -5,6 +5,6 @@ Doc: https://github.com/davsuapas/DanceSchool
 
 ![Pipeline](https://github.com/davsuapas/DanceSchool-CloudPipeline/blob/master/pipeline.png)
 
-# Smoke test flow
+## Smoke test Sample (Spring Cloud contract)
 
 ![Pipeline](https://github.com/davsuapas/DanceSchool-CloudPipeline/blob/master/smoketest.png)
