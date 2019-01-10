@@ -1,6 +1,8 @@
 # DanceSchool-CloudPipeline
 School Pipeline (Spring cloud)
 
+## Pipeline Flow Sample
+
 Doc: https://github.com/davsuapas/DanceSchool
 
 ![Pipeline](https://github.com/davsuapas/DanceSchool-CloudPipeline/blob/master/pipeline.png)
