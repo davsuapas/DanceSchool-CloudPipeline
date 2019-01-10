@@ -7,4 +7,4 @@ Doc: https://github.com/davsuapas/DanceSchool
 
 # Smoke test flow
 
-![Pipeline](https://github.com/davsuapas/DanceSchool-CloudPipeline/blob/master/Smoke test.png)
+![Pipeline](https://github.com/davsuapas/DanceSchool-CloudPipeline/blob/master/smoketest.png)
